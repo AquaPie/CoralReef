@@ -27,7 +27,7 @@ import android.provider.Settings;
 
 import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
-import com.android.settings.Utils;
+import com.aquarios.coralreef.preferences.Utils;
 
 import com.android.internal.logging.nano.MetricsProto;
 
@@ -36,7 +36,14 @@ public class Miscellaneous extends SettingsPreferenceFragment implements Prefere
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final String KEY_DEVICE_PART = "device_part";
+        final String KEY_DEVICE_PART_PACKAGE_NAME = "org.omnirom.device";
         addPreferencesFromResource(R.xml.miscellaneous);
+
+        // DeviceParts
+        if (!Utils.isPackageInstalled(getActivity(), KEY_DEVICE_PART_PACKAGE_NAME)) {
+            getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_PART));
+        }
     }
 
     @Override
